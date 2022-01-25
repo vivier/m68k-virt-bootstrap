@@ -63,6 +63,14 @@
 	.text
 	.globl _start
 _start:
+	lea banner, %a0
+	clr.l %d0
+banner_loop:
+	move.b (%a0)+, %d0
+	move.l %d0, VIRT_GF_TTY_MMIO_BASE
+	tst.b (%a0)
+	bne.W banner_loop
+
 	lea VIRT_CTRL_MMIO_BASE, %a0
 	move.l #FW_M68K, REG_PARAM(%a0)
 	move.l #CMD_FW_LOAD, REG_CMD(%a0)
@@ -103,6 +111,9 @@ error:
 	move.l #CMD_PANIC, REG_CMD(%a0)
 loop:
 	bra loop
+
+banner:
+	.string "Booting Petit boot firmware\n"
 
 bootinfo:
 	.word BI_MACHTYPE, 8
