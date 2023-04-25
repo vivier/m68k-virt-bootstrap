@@ -138,5 +138,5 @@ bootinfo_cmdline:
          /* tag size must be a multiple of 4 */
 #define TAG_COMMANG_LINE_SIZE 24
         .word BI_COMMAND_LINE, TAG_COMMANG_LINE_SIZE
-	.string "console=ttyGF0 quiet"
+	.string "quiet console=null"
 bootinfo_end = bootinfo_cmdline + TAG_COMMANG_LINE_SIZE
